@@ -10,8 +10,8 @@ Deux bibliothèques sont nécessaires :
 
 
 ## Installation
-Ajoutez le CSS dans le <head> ou à votre CSS.
-Ajoutez le script analyticsCNIL.js à la fin du <body>
+Ajoutez le CSS dans le head ou à votre CSS.
+Ajoutez le script analyticsCNIL.js à la fin du body.
 
 ## Utilisation
 Il existe 3 modes :
