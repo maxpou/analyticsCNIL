@@ -1,10 +1,17 @@
-var analyticsCNIL  = {
+/*
+ * ----------------------------------------------------------------
+ * « LICENCE BEERWARE » (Révision 42):
+ * Maxpou <maxence.poutord@gmail.com> a créé ce fichier. Tant que vous conservez cet
+ * avertissement,vous pouvez faire ce que vous voulez de ce truc.
+ * Si on se rencontre un jour et que vous pensez que ce truc vaut le
+ * coup, vous pouvez me payer une bière en retour. Poul-Henning Kamp
+ * -----------------------------------------------------------------
+ */
+var analyticsCNIL = {
 
-    //Permet ou non à l'utilisateur de refuser les cookies
-    canRefuse: true,
-    //affiche la banière et charge les cookies sans le consentement de l'utilisateur
-    dontCare: true,
-    //Utilise ou non l'option DNT du navigateur
+    //mode : normal, minimal, dontCare
+    mode: "normal",
+    //Utilise ou non l'option DNT du navigateur.
     enableDNTBrowserOption: false,
     //message pour l'utilisateur
     messageContent: "En poursuivant votre navigation sur ce site, vous acceptez l’utilisation de cookies pour réaliser des statistiques de visites anonyme.",
@@ -19,7 +26,7 @@ var analyticsCNIL  = {
      *     Si l'utilisateur a consenti track
      */
     start: function () {
-        if (this.dontCare === true) {
+        if (this.mode == "dontCare") {
             this.track();
             if ($.cookie('cookieBanner') === undefined) {
                 this.showBanner();
@@ -58,38 +65,48 @@ var analyticsCNIL  = {
                 this.urlLearnMore,
                 '" target="_blank">En savoir plus.</a>');
 
-        if (that.dontCare === true) {
+        if (that.mode == "normal") {
+            html.push(
+                '<div class="cookie_btn" id="cookie_accept">Ok</div>',
+                '<div class="cookie_btn cookie_btn-refuse" id="cookie_refuse">Refuser les cookies</div>');
+        } else if (that.mode == "minimal") {
+            html.push(
+                '<div class="cookie_btn" id="cookie_accept">Ok</div>');
+        } else if (that.mode == "dontCare") {
             html.push(
                 '<div class="cookie_btn" id="cookie_close">x Fermer</div>');
         } else {
-            html.push(
-                '<div class="cookie_btn" id="cookie_accept">Ok</div>');
+            console.warn("[analyticsCNIL] Le mode n'est pas bien défini.");
         }
-
-        if (that.canRefuse === true) {
-            html.push('<div class="cookie_btn cookie_btn-refuse" id="cookie_refuse">Refuser les cookies</div>');
-        };
+        ;
 
         html.push(
-            '</div>')
+            '</div>');
 
         $('body').append(html.join(""));
 
-        $( "#cookie_accept" ).bind("click", function(e) {
+        $( "#cookie_accept" ).on("click", function(e) {
             e.preventDefault(e);
             that.accept();
-            $('#cookie').fadeOut(300,function(){$('#cookie-bar').remove();});
+            $('#cookie').fadeOut(300,function(){
+                $('#cookie-bar').remove();
+            });
         });
-        $( "#cookie_refuse" ).bind("click", function(e) {
+        $( "#cookie_refuse" ).on("click", function(e) {
             e.preventDefault(e);
             that.refuse();
-            $('#cookie').fadeOut(300,function(){$('#cookie-bar').remove();});
+            $('#cookie').fadeOut(300,function(){
+                $('#cookie-bar').remove();
+            });
         });
-        $( "#cookie_close" ).bind("click", function(e) {
+        $( "#cookie_close" ).on("click", function(e) {
             e.preventDefault(e);
             $.cookie('cookieBanner', '1', {expires: 30 * 13});
-            $('#cookie').fadeOut(300,function(){$('#cookie-bar').remove();});
+            $('#cookie').fadeOut(300,function(){
+                $('#cookie-bar').remove();
+            });
         });
+
     },
 
     accept: function(e) {
