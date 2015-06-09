@@ -1,6 +1,6 @@
 # analyticsCNIL
 
-## Presentation
+## Présentation
 Pour se mettre en conformité avec la [CNIL](http://www.cnil.fr/vos-obligations/sites-web-cookies-et-autres-traceurs/outils-et-codes-sources/la-mesure-daudience/), vous devez ajouter un bandeau sur votre site indiquant au visiteur que vous le traquez.
 
 ## Pré-requis
