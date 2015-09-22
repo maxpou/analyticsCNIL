@@ -20,3 +20,10 @@ Il existe 3 modes :
 * dontCare : le bandeau est uniquement présent à titre indicatif. Le visiteur est quand même tracké.
 
 Il est aussi possible de prendre en compte l'option DoNotTrack du navigateur. Si cette option est activée, le utilisateur ne verra pas le bandeau. Le mode "dontCare" ne tient pas compte de cette option.
+
+## Roadmap
+
+[ ] Industrialiser les tests
+[ ] Intégrer plateforme intégration continue (Travis)
+[ ] Supprimer jQuery-cookie
+[ ] Supprimer jQuery

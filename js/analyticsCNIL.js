@@ -1,12 +1,3 @@
-/*
- * ----------------------------------------------------------------
- * « LICENCE BEERWARE » (Révision 42):
- * Maxpou <maxence.poutord@gmail.com> a créé ce fichier. Tant que vous conservez cet
- * avertissement,vous pouvez faire ce que vous voulez de ce truc.
- * Si on se rencontre un jour et que vous pensez que ce truc vaut le
- * coup, vous pouvez me payer une bière en retour. Poul-Henning Kamp
- * -----------------------------------------------------------------
- */
 var analyticsCNIL = {
 
     //mode : normal, minimal, dontCare
@@ -26,7 +17,7 @@ var analyticsCNIL = {
      *     Si l'utilisateur a consenti track
      */
     start: function () {
-        if (this.mode == "dontCare") {
+        if (this.mode === "dontCare") {
             this.track();
             if ($.cookie('cookieBanner') === undefined) {
                 this.showBanner();
@@ -34,7 +25,7 @@ var analyticsCNIL = {
         } else if ($.cookie('cookieConsent') && $.cookie('cookieConsent') === '1') {
             this.track();
         }
-        else if ($.cookie('cookieConsent') === undefined && this.doNotTrack() != true) {
+        else if ($.cookie('cookieConsent') === undefined && this.doNotTrack() !== true) {
             this.showBanner();
         }
     },
@@ -46,7 +37,7 @@ var analyticsCNIL = {
         if (this.enableDNTBrowserOption ===  false) {
             return false;
         }
-        if ( (navigator.doNotTrack && (navigator.doNotTrack=='yes' || navigator.doNotTrack=='1')) || ( navigator.msDoNotTrack && navigator.msDoNotTrack == '1') ) {
+        if ((navigator.doNotTrack && (navigator.doNotTrack === 'yes' || navigator.doNotTrack ===' 1')) || ( navigator.msDoNotTrack && navigator.msDoNotTrack === '1') ) {
             return true;
         } else {
             return false;
@@ -65,20 +56,19 @@ var analyticsCNIL = {
                 this.urlLearnMore,
                 '" target="_blank">En savoir plus.</a>');
 
-        if (that.mode == "normal") {
+        if (that.mode === "normal") {
             html.push(
                 '<div class="cookie_btn" id="cookie_accept">Ok</div>',
                 '<div class="cookie_btn cookie_btn-refuse" id="cookie_refuse">Refuser les cookies</div>');
-        } else if (that.mode == "minimal") {
+        } else if (that.mode === "minimal") {
             html.push(
                 '<div class="cookie_btn" id="cookie_accept">Ok</div>');
-        } else if (that.mode == "dontCare") {
+        } else if (that.mode === "dontCare") {
             html.push(
                 '<div class="cookie_btn" id="cookie_close">x Fermer</div>');
         } else {
             console.warn("[analyticsCNIL] Le mode n'est pas bien défini.");
         }
-        ;
 
         html.push(
             '</div>');
@@ -109,7 +99,7 @@ var analyticsCNIL = {
 
     },
 
-    accept: function(e) {
+    accept: function() {
         $.cookie('cookieConsent', '1', {expires: 30 * 13});
         this.track();
     },
@@ -132,12 +122,12 @@ var analyticsCNIL = {
         _gaq.push(['_trackPageview']);
 
         //renvoie la variable dans la page
-        window['_gaq'] = _gaq;
+        window._gaq = _gaq;
 
         (function() {
             var ga = document.createElement('script');
             ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            ga.src = ('https:' === document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
             var s = document.getElementsByTagName('script')[0];
             s.parentNode.insertBefore(ga, s);
         })();
@@ -151,9 +141,10 @@ var analyticsCNIL = {
 
     //Supprime les cookies de Google Analytics
     deleteAnalyticsCookies: function () {
-        var cookieNames = ["__utma","__utmb","__utmc","__utmt","__utmv","__utmz","_ga","_gat"]
-        for (var i=0; i<cookieNames.length; i++)
-            $.removeCookie(cookieNames[i])
+        var cookieNames = ["__utma","__utmb","__utmc","__utmt","__utmv","__utmz","_ga","_gat"];
+        for (var i=0; i<cookieNames.length; i++) {
+            $.removeCookie(cookieNames[i]);
+        }
     }
 
 };
