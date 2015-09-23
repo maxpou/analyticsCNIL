@@ -19,13 +19,13 @@ var analyticsCNIL = {
     start: function () {
         if (this.mode === "dontCare") {
             this.track();
-            if ($.cookie('cookieBanner') === undefined) {
+            if (Cookies.get('cookieBanner') === undefined) {
                 this.showBanner();
             }
-        } else if ($.cookie('cookieConsent') && $.cookie('cookieConsent') === '1') {
+        } else if (Cookies.get('cookieConsent') && Cookies.get('cookieConsent') === '1') {
             this.track();
         }
-        else if ($.cookie('cookieConsent') === undefined && this.doNotTrack() !== true) {
+        else if (Cookies.get('cookieConsent') === undefined && this.doNotTrack() !== true) {
             this.showBanner();
         }
     },
@@ -91,7 +91,7 @@ var analyticsCNIL = {
         });
         $( "#cookie_close" ).on("click", function(e) {
             e.preventDefault(e);
-            $.cookie('cookieBanner', '1', {expires: 30 * 13});
+            Cookies.set('cookieBanner', '1', {expires: 30 * 13});
             $('#cookie').fadeOut(300,function(){
                 $('#cookie-bar').remove();
             });
@@ -100,17 +100,17 @@ var analyticsCNIL = {
     },
 
     accept: function() {
-        $.cookie('cookieConsent', '1', {expires: 30 * 13});
+        Cookies.set('cookieConsent', '1', {expires: 30 * 13});
         this.track();
     },
 
     refuse: function() {
-        $.cookie('cookieConsent', '0', {expires: 30 * 13});
+        Cookies.set('cookieConsent', '0', {expires: 30 * 13});
         this.deleteAnalyticsCookies();
     },
 
     reset: function() {
-        $.removeCookie('cookieConsent');
+        Cookies.remove('cookieConsent', { path: '' });
         this.deleteAnalyticsCookies();
         window.location.reload();
     },
@@ -143,12 +143,12 @@ var analyticsCNIL = {
     deleteAnalyticsCookies: function () {
         var cookieNames = ["__utma","__utmb","__utmc","__utmt","__utmv","__utmz","_ga","_gat"];
         for (var i=0; i<cookieNames.length; i++) {
-            $.removeCookie(cookieNames[i]);
+            Cookies.remove(cookieNames[i], { path: '' });
         }
     }
 
 };
 
-$(document).ready(function() {
+document.addEventListener('DOMContentLoaded', function() {
     analyticsCNIL.start();
 });

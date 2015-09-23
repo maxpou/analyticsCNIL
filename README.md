@@ -6,7 +6,7 @@ Pour se mettre en conformité avec la [CNIL](http://www.cnil.fr/vos-obligations/
 ## Pré-requis
 Deux bibliothèques sont nécessaires :
 * [jQuery](https://jquery.com/)
-* [jQuery Cookie](https://github.com/carhartl/jquery-cookie)
+* [js-cookie](https://github.com/js-cookie/js-cookie)
 
 
 ## Installation
@@ -23,7 +23,7 @@ Il est aussi possible de prendre en compte l'option DoNotTrack du navigateur. Si
 
 ## Roadmap
 
+[X] Supprimer jQuery-cookie
+[ ] Supprimer jQuery
 [ ] Industrialiser les tests
 [ ] Intégrer plateforme intégration continue (Travis)
-[ ] Supprimer jQuery-cookie
-[ ] Supprimer jQuery
